@@ -70,20 +70,24 @@ big_integer::big_integer() {
 }
  
 // создает длинное целое число из C++-строки
-big_integer::big_integer(std::string str) {
-    if (str.length() == 0) {
+big_integer::big_integer(std::string str) 
+{
+    if (str.length() == 0)
         this->_is_negative = false;
-    }
-    else {
-        if (str[0] == '-') {
+    
+    else
+    {
+        if (str[0] == '-')
+        {
             str = str.substr(1);
             this->_is_negative = true;
         }
-        else {
+        else 
             this->_is_negative = false;
-        }
+        
  
-        for (long long i = str.length(); i > 0; i -= 9) {
+        for (long long i = str.length(); i > 0; i -= 9)
+        {
             if (i < 9)
                 this->_digits.push_back(atoi(str.substr(0, i).c_str()));
             else
@@ -103,7 +107,10 @@ void big_integer::_remove_leading_zeros() {
     if (this->_digits.size() == 1 && this->_digits[0] == 0) this->_is_negative = false;
 }
  
-// печатает число в поток вывода
+ 
+ //======================перегрузка оператора вывода============================= 
+ 
+
 std::ostream& operator <<(std::ostream& os, const big_integer& bi) {
     if (bi._digits.empty()) os << 0;
     else {
@@ -136,17 +143,17 @@ bool operator ==(const big_integer& left, const big_integer& right) {
     return true;
 }
  
-// возвращает копию переданного числа
-const big_integer big_integer::operator +() const {
-    return big_integer(*this);
-}
+// // возвращает копию переданного числа
+// const big_integer big_integer::operator +() const {
+//     return big_integer(*this);
+// }
  
-// возвращает переданное число с другим знаком
-const big_integer big_integer::operator -() const {
-    big_integer copy(*this);
-    copy._is_negative = !copy._is_negative;
-    return copy;
-}
+// // возвращает переданное число с другим знаком
+// const big_integer big_integer::operator -() const {
+//     big_integer copy(*this);
+//     copy._is_negative = !copy._is_negative;
+//     return copy;
+// }
  
 // проверяет, является ли левый операнд меньше правого
 bool operator <(const big_integer& left, const big_integer& right) {
